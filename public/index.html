@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="#f3f1e8">
+    <title>Household | Chore tracker</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=DM+Sans:wght@400;500;600;700&family=Fraunces:opsz,wght@9..144,500;9..144,600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <header class="topbar">
+        <a class="brand" href="#chores" aria-label="Household home">
+            <span class="brand-mark" aria-hidden="true">H</span>
+            <span>household<span class="brand-period">.</span></span>
+        </a>
+        <div class="topbar-user">
+            <span class="topbar-date" id="today-label"></span>
+            <span id="signed-in-user" class="signed-in-user"></span>
+            <button id="logout-button" class="logout-button" type="button">Sign out</button>
+        </div>
+    </header>
+
+    <main>
+        <section class="page-heading">
+            <div>
+                <p class="eyebrow">A shared home / a little more in balance</p>
+                <h1>Good things,<br><em>done together.</em></h1>
+            </div>
+            <div class="heading-stamp" aria-hidden="true"><span>MAKE<br>ROOM FOR<br>GOOD DAYS</span></div>
+        </section>
+
+        <nav class="view-tabs" role="tablist" aria-label="Household views">
+            <button class="view-tab" id="chores-tab" type="button" role="tab" aria-selected="true" aria-controls="chores-view" data-view-tab="chores">Chores <span id="chore-tab-count">0</span></button>
+            <button class="view-tab" id="stats-tab" type="button" role="tab" aria-selected="false" aria-controls="stats-view" data-view-tab="stats">Statistics <span aria-hidden="true">↗</span></button>
+        </nav>
+
+        <section id="chores-view" class="view" role="tabpanel" aria-labelledby="chores-tab" data-view="chores">
+            <div class="today-banner">
+                <div>
+                    <p class="eyebrow">The everyday list</p>
+                    <h2>What needs doing?</h2>
+                </div>
+                <p id="today-progress" class="today-progress">Loading your home …</p>
+            </div>
+
+            <div class="chores-layout">
+                <section class="chores-section" aria-labelledby="chores-title">
+                    <div class="section-heading">
+                        <div>
+                            <span class="section-index">01</span>
+                            <h2 id="chores-title">Household chores</h2>
+                        </div>
+                        <span class="section-rule" aria-hidden="true"></span>
+                    </div>
+                    <p id="chores-status" class="inline-status" role="status" aria-live="polite"></p>
+                    <div id="chore-list" class="chore-list" aria-live="polite"></div>
+                </section>
+
+                <aside class="side-panel" aria-label="Household setup">
+                    <section class="people-section" aria-labelledby="people-title">
+                        <div class="section-heading compact-heading">
+                            <div><span class="section-index">02</span><h2 id="people-title">The household</h2></div>
+                        </div>
+                        <ul id="people-list" class="people-list"></ul>
+                        <form id="person-form" class="quick-form">
+                            <label for="person-name">Add a person</label>
+                            <div class="input-action">
+                                <input id="person-name" name="name" type="text" maxlength="60" placeholder="Name" required>
+                                <button type="submit" aria-label="Add person" title="Add person">+</button>
+                            </div>
+                        </form>
+                    </section>
+
+                    <section class="add-chore-section" aria-labelledby="add-chore-title">
+                        <div class="section-heading compact-heading">
+                            <div><span class="section-index">03</span><h2 id="add-chore-title">Add a chore</h2></div>
+                        </div>
+                        <form id="chore-form" class="chore-form">
+                            <label for="chore-title">Chore name</label>
+                            <input id="chore-title" name="title" type="text" maxlength="100" placeholder="e.g. Water the plants" required>
+                            <label for="chore-description">A little detail <span>optional</span></label>
+                            <textarea id="chore-description" name="description" maxlength="240" rows="2" placeholder="Anything helpful to remember?"></textarea>
+                            <button class="text-action" type="submit">Add to the list <span aria-hidden="true">→</span></button>
+                        </form>
+                    </section>
+                    <p id="setup-status" class="setup-status" role="status" aria-live="polite"></p>
+                </aside>
+            </div>
+        </section>
+
+        <section id="stats-view" class="view" role="tabpanel" aria-labelledby="stats-tab" data-view="stats" hidden>
+            <div class="stats-header">
+                <div>
+                    <p class="eyebrow">Small efforts add up</p>
+                    <h2>The household, at a glance.</h2>
+                </div>
+                <label class="period-select" for="stats-period">Show
+                    <select id="stats-period">
+                        <option value="week">Last 7 days</option>
+                        <option value="month">Last 30 days</option>
+                        <option value="all">All time</option>
+                    </select>
+                </label>
+            </div>
+
+            <p id="stats-status" class="inline-status" role="status" aria-live="polite"></p>
+            <div class="metrics" aria-label="Chore summary">
+                <article class="metric metric-primary"><span class="metric-label">Chores checked off</span><strong id="metric-total">0</strong><span class="metric-foot">in this period</span></article>
+                <article class="metric"><span class="metric-label">People pitching in</span><strong id="metric-people">0</strong><span class="metric-foot">with a recorded chore</span></article>
+                <article class="metric"><span class="metric-label">Different chores done</span><strong id="metric-chores">0</strong><span class="metric-foot">from your household list</span></article>
+            </div>
+
+            <div class="stats-grid">
+                <section class="stat-section" aria-labelledby="people-stats-title">
+                    <div class="section-heading"><div><span class="section-index">01</span><h3 id="people-stats-title">By person</h3></div><span class="section-rule" aria-hidden="true"></span></div>
+                    <div id="people-stats" class="rank-list"></div>
+                </section>
+                <section class="stat-section" aria-labelledby="chore-stats-title">
+                    <div class="section-heading"><div><span class="section-index">02</span><h3 id="chore-stats-title">By chore</h3></div><span class="section-rule" aria-hidden="true"></span></div>
+                    <div id="chore-stats" class="rank-list"></div>
+                </section>
+            </div>
+
+            <section class="recent-section" aria-labelledby="recent-title">
+                <div class="section-heading"><div><span class="section-index">03</span><h3 id="recent-title">Recently completed</h3></div><span class="section-rule" aria-hidden="true"></span></div>
+                <div id="recent-list" class="recent-list"></div>
+            </section>
+        </section>
+    </main>
+
+    <footer class="page-footer"><span>Made for the place you share.</span><span>Saved in your household database</span></footer>
+    <script src="app.js" defer></script>
+</body>
+</html>

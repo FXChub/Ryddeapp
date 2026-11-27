@@ -1,0 +1,16 @@
+{
+  "name": "home-chores",
+  "version": "1.0.0",
+  "private": true,
+  "description": "A household chore tracker with SQLite-backed completion history",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "dev": "node --watch server.js"
+  },
+  "dependencies": {
+    "bcrypt": "^6.0.0",
+    "better-sqlite3": "^12.2.0",
+    "express": "^5.1.0"
+  }
+}
